@@ -1,2 +1,2 @@
-# ubuntu-novnc
-ubuntu with xfce,  tigervnc and novnc
+# docker imges
+自制镜像集合
