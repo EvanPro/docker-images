@@ -9,7 +9,9 @@ RUN apt-get update && apt-get install -y \
         vim \
         zip \
         wget \
-        python-minimal \
+        supervisor \
+        xfce4 \
+        xfce4-terminal \
     && apt-get -y autoremove \
     && rm -rf /var/lib/apt/lists/* \
     && wget -P /opt/ https://github.com/novnc/noVNC/archive/v1.1.0.tar.gz \
