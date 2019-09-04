@@ -1,8 +1,14 @@
 FROM ubuntu:16.04
 
-ENV DEBIAN_FRONTEND noninteractive
+ENV DEBIAN_FRONTEND=noninteractive
+    TZ=Asia/Shanghai
 
-RUN sed -i s@/archive.ubuntu.com/@/mirrors.tuna.tsinghua.edu.cn/@g /etc/apt/sources.list && apt-get clean && apt-get update && apt-get install -y \
+RUN sed -i s@/archive.ubuntu.com/@/mirrors.tuna.tsinghua.edu.cn/@g /etc/apt/sources.list \
+        && apt-get clean \
+        && apt-get update \
+        && ln -snf /usr/share/zoneinfo/$TZ /etc/localtime && echo $TZ > /etc/timezone \
+        && apt-get install -y \
+        tzdata \
         inetutils-ping \
         net-tools \
         sudo \
