@@ -16,6 +16,7 @@ RUN sed -i s@/archive.ubuntu.com/@/mirrors.tuna.tsinghua.edu.cn/@g /etc/apt/sour
         vim \
         zip \
         wget \
+        locales \
         supervisor \
         xfce4 \
         xfce4-terminal \
