@@ -2,6 +2,11 @@ FROM ubuntu:16.04
 
 ENV DEBIAN_FRONTEND=noninteractive
     TZ=Asia/Shanghai
+    
+ENV DISPLAY=:1 \
+    VNC_PW=vncpassword \
+    NO_VNC_PORT=6901 \
+    NO_VNC_HOME=/opt/noVNC
 
 RUN sed -i s@/archive.ubuntu.com/@/mirrors.tuna.tsinghua.edu.cn/@g /etc/apt/sources.list \
     && apt-get clean \
@@ -32,12 +37,14 @@ ENV LANG zh_CN.UTF-8 \
     LANGUAGE='zh_CN:zh'
     
 RUN mkdir /opt/noVNC \
-    && wget -qO- https://github.com/novnc/noVNC/archive/v1.1.0.tar.gz | tar xz --strip 1 -C /opt/noVNC \
+    && wget -qO- https://github.com/novnc/noVNC/archive/v1.1.0.tar.gz | tar xz --strip 1 -C $NO_VNC_HOME \
     && mkdir /opt/noVNC/utils/websockify \
-    && wget -qO- https://github.com/novnc/websockify/archive/v0.9.0.tar.gz | tar xz --strip 1 -C /opt/noVNC/utils/websockify \
+    && wget -qO- https://github.com/novnc/websockify/archive/v0.9.0.tar.gz | tar xz --strip 1 -C $NO_VNC_HOME/utils/websockify \
+    && chmod +x -v $NO_VNC_HOME/utils/*.sh \
     && mkdir /opt/tigervnc \
     && wget -qO- https://dl.bintray.com/tigervnc/stable/tigervnc-1.9.0.x86_64.tar.gz | tar xz --strip 1 -C /
     
-### RUN vncserver :1
-### RUN ./launch.sh --vnc localhost:5901
+WORKDIR ${HOME}
+COPY [ "./src/", "dockerstartup/" ]
+ENTRYPOINT ["/dockerstartup/start_up.sh"]
 CMD ["/bin/bash"]
