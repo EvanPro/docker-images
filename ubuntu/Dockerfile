@@ -23,7 +23,7 @@ RUN sed -i s@/archive.ubuntu.com/@/mirrors.tuna.tsinghua.edu.cn/@g /etc/apt/sour
     && apt-get -y autoremove \
     && rm -rf /var/lib/apt/lists/* \
     && localedef -i zh_CN -c -f UTF-8 -A /usr/share/locale/locale.alias zh_CN.UTF-8
-ENV LANG en_US.utf8
+ENV LANG zh_CN.UTF-8
 RUN mkdir /opt/noVNC \
     && wget -qO- https://github.com/novnc/noVNC/archive/v1.1.0.tar.gz | tar xz --strip 1 -C /opt/noVNC \
     && mkdir /opt/noVNC/utils/websockify \
