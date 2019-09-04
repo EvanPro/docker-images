@@ -1,6 +1,6 @@
 FROM ubuntu:16.04
 
-ENV DEBIAN_FRONTEND=noninteractive
+ENV DEBIAN_FRONTEND=noninteractive \
     TZ=Asia/Shanghai
     
 ENV DISPLAY=:1 \
