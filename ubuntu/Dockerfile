@@ -1,10 +1,7 @@
 FROM ubuntu:16.04 AS ubuntu1604
 
-ENV LANG zh_CN.UTF-8 \
-    LC_ALL='zh_CN.UTF-8' \
-    LANGUAGE='zh_CN:zh' \
-    DEBIAN_FRONTEND=noninteractive \
-    TZ=Asia/Shanghai 
+ENV DEBIAN_FRONTEND=noninteractive \
+    TZ=Asia/Shanghai
 
 RUN sed -i s@/archive.ubuntu.com/@/mirrors.tuna.tsinghua.edu.cn/@g /etc/apt/sources.list \
     && apt-get clean \
@@ -23,7 +20,11 @@ RUN sed -i s@/archive.ubuntu.com/@/mirrors.tuna.tsinghua.edu.cn/@g /etc/apt/sour
     && apt-get -y autoremove \
     && rm -rf /var/lib/apt/lists/* \
     && localedef -i zh_CN -c -f UTF-8 -A /usr/share/locale/locale.alias zh_CN.UTF-8
-
+    
+ENV LANG zh_CN.UTF-8 \
+    LC_ALL='zh_CN.UTF-8' \
+    LANGUAGE='zh_CN:zh'
+    
 FROM ubuntu1604 AS ubuntu1604-xfce-vnc
 
 RUN sed -i s@/archive.ubuntu.com/@/mirrors.tuna.tsinghua.edu.cn/@g /etc/apt/sources.list \
