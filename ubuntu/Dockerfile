@@ -44,7 +44,6 @@ RUN mkdir /opt/noVNC \
     && mkdir /opt/tigervnc \
     && wget -qO- https://dl.bintray.com/tigervnc/stable/tigervnc-1.9.0.x86_64.tar.gz | tar xz --strip 1 -C /
     
-WORKDIR ${HOME}
-COPY [ "./src/", "dockerstartup/" ]
+COPY [ "./src/", "/~/dockerstartup/" ]
 ENTRYPOINT ["/dockerstartup/start_up.sh"]
 CMD ["/bin/bash"]
