@@ -20,7 +20,7 @@ ENV DEBIAN_FRONTEND=noninteractive
 
 RUN apt-get clean \
     && apt-get update \
-    && apt-get install -y supervisor xfce4 xfce4-terminal \
+    && apt-get install -y supervisor xfce4 xfce4-terminal language-pack-zh-hans language-pack-zh-hans-base \
     && apt-get purge -y pm-utils xscreensaver* \
     && apt-get -y autoremove \
     && rm -rf /var/lib/apt/lists/*
