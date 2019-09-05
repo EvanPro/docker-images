@@ -1,8 +1,9 @@
 FROM ubuntu:16.04 AS ubuntu-base
 
 # 设置阿里云源，并设置语言、时区，安装基本工具
-RUN sed -i s@/archive.ubuntu.com/@/mirrors.aliyun.com/@g /etc/apt/sources.list \
-    && apt-get update \
+# RUN sed -i s@/archive.ubuntu.com/@/mirrors.aliyun.com/@g /etc/apt/sources.list \
+#     && apt-get update \
+RUN apt-get update \
     && apt-get install -y --no-install-recommends locales language-pack-zh-hans tzdata wget sudo net-tools inetutils-ping vim\
     && locale-gen zh_CN.UTF-8 \
     && apt-get -y autoremove \
@@ -15,7 +16,8 @@ ENV TZ='Asia/Shanghai'
 
 FROM ubuntu-base AS ubuntu1604-xfce
 
-RUN apt-get update \
+RUN apt-get clean \
+    && apt-get update \
     && apt-get install -y supervisor xfce4 xfce4-terminal \
     && apt-get purge -y pm-utils xscreensaver* \
     && apt-get -y autoremove \
