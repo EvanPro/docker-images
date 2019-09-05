@@ -15,7 +15,8 @@ ENV TZ='Asia/Shanghai'
 
 FROM ubuntu-base AS ubuntu1604-xfce
 
-RUN apt-get install -y supervisor xfce4 xfce4-terminal \
+RUN apt-get update \
+    apt-get install -y supervisor xfce4 xfce4-terminal \
     && apt-get purge -y pm-utils xscreensaver* \
     && apt-get -y autoremove \
     && rm -rf /var/lib/apt/lists/*
