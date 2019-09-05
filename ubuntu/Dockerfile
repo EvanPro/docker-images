@@ -30,6 +30,7 @@ FROM ubuntu1604 AS ubuntu1604-xfce-vnc
 RUN sed -i s@/archive.ubuntu.com/@/mirrors.tuna.tsinghua.edu.cn/@g /etc/apt/sources.list \
     && apt-get clean \
     && apt-get update \
+    && apt-get install -y \
     supervisor \
     xfce4 \
     xfce4-terminal \
