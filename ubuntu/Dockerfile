@@ -16,6 +16,8 @@ ENV TZ='Asia/Shanghai'
 
 FROM ubuntu-base AS ubuntu1604-xfce
 
+ENV DEBIAN_FRONTEND=noninteractive
+
 RUN apt-get clean \
     && apt-get update \
     && apt-get install -y supervisor xfce4 xfce4-terminal \
