@@ -6,6 +6,7 @@ FROM ubuntu:16.04 AS ubuntu-base
 RUN apt-get update \
     && apt-get install -y --no-install-recommends locales language-pack-zh-hans tzdata wget sudo net-tools inetutils-ping vim\
     && locale-gen zh_CN.UTF-8 \
+    && dpkg-reconfigure locales \
     && apt-get -y autoremove \
     && rm -rf /var/lib/apt/lists/*
 
