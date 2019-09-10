@@ -17,12 +17,21 @@ echo "$VNC_PW" | vncpasswd -f >> $PASSWD_PATH
 chmod 600 $PASSWD_PATH
 
 echo -e "\n------------------ start VNC server ------------------------"
-vncserver $DISPLAY
+echo "remove old vnc locks to be a reattachable container"
+vncserver -kill :1 \
+    || rm -rfv /tmp/.X*-lock /tmp/.X11-unix \
+    || echo "no locks present"
+vncserver -geometry ${WIDTH:-1152}x${HEIGHT-864} :1
 
-## start vncserver and noVNC webclient
-echo -e "\n------------------ start noVNC  ----------------------------"
-$NO_VNC_HOME/utils/launch.sh --vnc localhost:5901 --listen $NO_VNC_PORT
+#start supervisor
+_term() {
+    while kill -0 $child >/dev/null 2>&1
+    do
+        kill -TERM $child 2>/dev/null
+    done
+}
 
-### resolve_vnc_connection
-VNC_IP=$(hostname -i)
-echo -e "\nnoVNC HTML client started:\n\t=> connect via http://$VNC_IP:$NO_VNC_PORT/?password=...\n"
+trap _term 15 9
+exec /usr/bin/supervisord -n &
+child=$!
+wait $child
