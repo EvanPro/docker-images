@@ -44,7 +44,7 @@ RUN apt-get update \
 RUN echo_supervisord_conf > /etc/supervisord.conf
 RUN echo "[program:ssh]\ncommand=/usr/sbin/sshd -D\nstdout_events_enabled=true\nstderr_events_enabled=true\nautorestart=true">>/etc/supervisord.conf
 
-RUN RUN mkdir /var/run/sshd
+RUN mkdir /var/run/sshd
 
 RUN echo 'root:root' |chpasswd
 
