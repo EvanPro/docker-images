@@ -4,9 +4,9 @@ set -e
 
 ## fix network config
 if [ -d "/root/dockerstartup/networkbackup/" ]; then
-    cat /root/dockerstartup/networkbackup/hosts >> /etc/hosts
-    cat /root/dockerstartup/networkbackup/hostname >> /etc/hostname
-    cat /root/dockerstartup/networkbackup/resolv.conf >> /etc/resolv.conf
+    cat /root/dockerstartup/networkbackup/hosts > /etc/hosts
+    cat /root/dockerstartup/networkbackup/hostname > /etc/hostname
+    cat /root/dockerstartup/networkbackup/resolv.conf > /etc/resolv.conf
 fi
 
 ## change vnc password
