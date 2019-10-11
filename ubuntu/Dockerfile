@@ -4,15 +4,10 @@ FROM ubuntu:16.04 AS ubuntu-base
 # RUN sed -i s@/archive.ubuntu.com/@/mirrors.aliyun.com/@g /etc/apt/sources.list \
 #     && apt-get update \
 RUN apt-get update \
-    && apt-get install -y --no-install-recommends locales language-pack-zh-hans tzdata wget sudo net-tools inetutils-ping vim\
-    && locale-gen zh_CN.UTF-8 \
-    && dpkg-reconfigure locales \
+    && apt-get install -y --no-install-recommends locales tzdata wget sudo net-tools inetutils-ping vim\
     && apt-get -y autoremove \
     && rm -rf /var/lib/apt/lists/*
 
-ENV LANG zh_CN.UTF-8
-ENV LANGUAGE zh_CN:zh
-ENV LC_ALL zh_CN.UTF-8
 ENV TZ='Asia/Shanghai'
 
 FROM ubuntu-base AS ubuntu-xfce
@@ -22,7 +17,7 @@ FROM ubuntu-base AS ubuntu-xfce
 ENV DEBIAN_FRONTEND=noninteractive
 
 RUN apt-get update \
-    && apt-get install -y xfce4 xfce4-terminal language-pack-zh-hans language-pack-zh-hans-base ttf-wqy-zenhei \
+    && apt-get install -y xfce4 xfce4-terminal \
     && apt-get purge -y pm-utils xscreensaver* \
     && apt-get -y autoremove \
     && rm -rf /var/lib/apt/lists/*
