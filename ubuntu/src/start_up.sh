@@ -28,7 +28,7 @@ echo "remove old vnc locks to be a reattachable container"
 vncserver -kill :1 \
     || rm -rfv /tmp/.X*-lock /tmp/.X11-unix \
     || echo "no locks present"
-vncserver -geometry ${WIDTH:-1152}x${HEIGHT-864} :1
+vncserver -geometry ${WIDTH:-1152}x${HEIGHT-864} :1 securitytypes=none
 
 #start supervisor
 _term() {
