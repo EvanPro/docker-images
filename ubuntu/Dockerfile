@@ -22,8 +22,6 @@ RUN apt-get update \
     && apt-get -y autoremove \
     && rm -rf /var/lib/apt/lists/*
 
-ENV DISPLAY=:1
-ENV VNC_PW=vncpassword
 RUN mkdir /opt/tigervnc \
     && wget -qO- https://dl.bintray.com/tigervnc/stable/tigervnc-1.9.0.x86_64.tar.gz | tar xz --strip 1 -C /
 
@@ -35,9 +33,6 @@ RUN apt-get update \
     && apt-get install -y supervisor openssh-server \
     && apt-get -y autoremove \
     && rm -rf /var/lib/apt/lists/*
-
-RUN echo_supervisord_conf > /etc/supervisord.conf
-RUN echo "[program:ssh]\ncommand=/usr/sbin/sshd -D\nstdout_events_enabled=true\nstderr_events_enabled=true\nautorestart=true">>/etc/supervisord.conf
 
 RUN mkdir /var/run/sshd
 
