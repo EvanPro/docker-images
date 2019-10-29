@@ -25,8 +25,7 @@ RUN apt-get update \
 RUN mkdir /opt/tigervnc \
     && wget -qO- https://dl.bintray.com/tigervnc/stable/tigervnc-1.9.0.x86_64.tar.gz | tar xz --strip 1 -C /
 
-COPY [ "./src/xfconf", "/root/.config/xfce4/xfconf" ]
-COPY [ "./src/Desktop", "/root/Desktop" ]
+COPY [ "./src/xfce4", "/root/.config/xfce4" ]
 
 EXPOSE 5901
 
@@ -46,6 +45,8 @@ RUN apt-get update && apt-get -f install
 
 RUN apt-get -y autoremove \
     && rm -rf /var/lib/apt/lists/*
+
+COPY [ "./src/Desktop", "/root/Desktop" ]
 
 # 安装ssh
 FROM ubuntu-xfce-chrome AS ubuntu-ssh
