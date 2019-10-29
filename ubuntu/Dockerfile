@@ -17,7 +17,7 @@ FROM ubuntu-base AS ubuntu-xfce
 ENV DEBIAN_FRONTEND=noninteractive
 
 RUN apt-get update \
-    && apt-get install -y xfce4 xfce4-terminal \
+    && apt-get install -y xfce4 xfce4-terminal fonts-wqy-microhei\
     && apt-get purge -y pm-utils xscreensaver* \
     && apt-get -y autoremove \
     && rm -rf /var/lib/apt/lists/*
@@ -25,10 +25,29 @@ RUN apt-get update \
 RUN mkdir /opt/tigervnc \
     && wget -qO- https://dl.bintray.com/tigervnc/stable/tigervnc-1.9.0.x86_64.tar.gz | tar xz --strip 1 -C /
 
+COPY [ "./src/xfce", "/root/.config/xfce4" ]
+
 EXPOSE 5901
 
-FROM ubuntu-xfce AS ubuntu-ssh
+FROM ubuntu-xfce AS ubuntu-xfce-chrome
+
+#安装chrome
+
+ENV DEBIAN_FRONTEND=noninteractive
+
+RUN apt-get update && apt-get install -y \
+		gconf-service libnspr4 libnss3 fonts-liberation \
+		libappindicator1 libcurl3 lsb-release xdg-utils
+
+RUN wget https://dl.google.com/linux/direct/google-chrome-stable_current_amd64.deb
+RUN dpkg -i google-chrome*.deb
+RUN apt-get update && apt-get -f install
+
+RUN apt-get -y autoremove \
+    && rm -rf /var/lib/apt/lists/*
+
 # 安装ssh
+FROM ubuntu-xfce-chrome AS ubuntu-ssh
 RUN apt-get update \
     && apt-get install -y supervisor openssh-server \
     && apt-get -y autoremove \
@@ -46,7 +65,7 @@ RUN mkdir /root/.ssh
 EXPOSE 22
 
 WORKDIR /root
-COPY [ "./src/", "dockerstartup/" ]
+COPY [ "./src/dockerstartup", "dockerstartup/" ]
 RUN chmod +x dockerstartup/*.sh
 
 ENTRYPOINT ["dockerstartup/start_up.sh"]
