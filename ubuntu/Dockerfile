@@ -25,7 +25,8 @@ RUN apt-get update \
 RUN mkdir /opt/tigervnc \
     && wget -qO- https://dl.bintray.com/tigervnc/stable/tigervnc-1.9.0.x86_64.tar.gz | tar xz --strip 1 -C /
 
-COPY [ "./src/xfce", "/root/.config/xfce4" ]
+COPY [ "./src/xfconf", "/root/.config/xfce4/xfconf" ]
+COPY [ "./src/Desktop", "/root/Desktop" ]
 
 EXPOSE 5901
 
@@ -36,8 +37,8 @@ FROM ubuntu-xfce AS ubuntu-xfce-chrome
 ENV DEBIAN_FRONTEND=noninteractive
 
 RUN apt-get update && apt-get install -y \
-		gconf-service libnspr4 libnss3 fonts-liberation \
-		libappindicator1 libcurl3 lsb-release xdg-utils
+    gconf-service libnspr4 libnss3 fonts-liberation \
+    libappindicator1 libcurl3 lsb-release xdg-utils
 
 RUN wget https://dl.google.com/linux/direct/google-chrome-stable_current_amd64.deb
 RUN dpkg -i google-chrome*.deb
