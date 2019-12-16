@@ -7,3 +7,5 @@ docker build -t subdomain-nginx .
 
 eg:
 http://10000a2886812154.cloudlab.com/ ==> http://172.17.65.250:10000
+
+不同环境部署时，仅需修改src/nginx.conf中server_name对应的顶级域名即可
