@@ -12,6 +12,7 @@
     },
     "dependencies": {
         "@theia/file-search": "latest",
+        "@theia/debug":"latest",
         "@theia/java": "latest",
         "@theia/java-debug": "latest",
         "@theia/json": "latest",
