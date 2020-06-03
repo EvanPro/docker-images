@@ -1,11 +1,18 @@
 docker build -t subdomain-nginx .
 
-根据二级域名进行反向代理的nginx
+创建2个server
 
-转发规则：
-端口号+a+ip对应的整数.domain.com ==> ip:端口号
+1、第一个server做一级域名的load balance，包括websocket的load balance，同时关闭了缓存（proxy_buffering off;）
 
-eg:
-http://10000a2886812154.cloudlab.com/ ==> http://172.17.65.250:10000
 
-不同环境部署时，仅需修改src/nginx.conf中server_name对应的顶级域名即可
+2、根据二级域名进行反向代理的nginx
+
+    转发规则：
+    端口号+a+ip对应的整数.domain.com ==> ip:端口号
+
+    eg:
+    http://10000a2886812154.evan.com/ ==> http://172.17.65.250:10000
+    
+使用方法：
+修改src/nginx.conf中2个server的server_name
+修改upstream中的集群配置
