@@ -17,7 +17,7 @@ nohup /opt/openoffice4/program/soffice -headless -accept="socket,host=127.0.0.1,
 
 
 # 使用方法：
-将要部署的可执行jar所在目录映射至容器的`/app`下即可。
+将要部署的可执行jar命名为`app.jar`，并将其所在目录映射至容器的`/app`下即可。
 
 eg：docker run -d -v /root/app:/app fsp
 
