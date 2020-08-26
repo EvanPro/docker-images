@@ -40,7 +40,7 @@ USER root
 COPY src/ /root/dockerstartup/
 RUN chmod +x /root/dockerstartup/*.sh
 
-COPY sparkscala/ /home/project
+COPY sparkscala/ /home/project/sparkscala
 
 WORKDIR /home/project/sparkscala
 RUN mvn package
