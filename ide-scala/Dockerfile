@@ -44,5 +44,6 @@ COPY sparkscala/ /home/project/sparkscala
 
 WORKDIR /home/project/sparkscala
 RUN mvn package
+WORKDIR /home/theia
 
 ENTRYPOINT ["/root/dockerstartup/startup.sh"]
