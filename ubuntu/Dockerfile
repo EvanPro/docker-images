@@ -47,6 +47,7 @@ RUN apt-get -y autoremove \
     && rm -rf /var/lib/apt/lists/*
 
 COPY [ "./src/Desktop", "/root/Desktop" ]
+RUN chmod -R 755 /root/Desktop
 
 # 安装ssh
 FROM ubuntu-xfce-chrome AS ubuntu-ssh
