@@ -1,6 +1,6 @@
 # 此镜像基于
-- openoffice 4.1.7
-- open-jdk 1.8.0
+- openoffice 4.1.9
+- open-jdk:8-jdk
 
 openoffice 安装目录：
 `/opt/openoffice4`
