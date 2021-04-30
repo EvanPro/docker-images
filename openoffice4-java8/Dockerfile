@@ -5,7 +5,7 @@ ARG OO_TGZ_URL="https://jaist.dl.sourceforge.net/project/openofficeorg.mirror/${
 ### support chinese
 COPY fonts/ /usr/share/fonts/
 
-RUN apt-get update && apt-get install -y xfonts-utils
+RUN apt-get update && apt-get install -y xfonts-utils libxt6 libxext6 libfreetype6 libxrender1
 
 RUN cd /usr/share/fonts/ && \
     chmod -R 777 /usr/share/fonts && \
